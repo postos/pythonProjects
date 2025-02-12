@@ -1,6 +1,9 @@
 import requests
+import tkinter as tk
+from tkinter import messagebox
+import os
 
-API_KEY = "b7c57d2e62261aa20f697a4a78792bbd"
+API_KEY = os.getenv("OPENWEATHER_API_KEY") # Retrieves the API key from the environment variable set in ~/.zshrc
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
 # get weather method 
@@ -8,6 +11,9 @@ def get_weather(city):
     params = {"q" : city, # city entered by user
               "appid": API_KEY, # api key for authentication
               "units": "imperial"} # use 
+    if not city: 
+        messagebox.showwarning("Input error, please enter a city name.")
+        return
 
     # make API request 
     response = requests.get(BASE_URL, params=params)
@@ -26,10 +32,11 @@ def get_weather(city):
         # extract humidity %
         humidity = data['main']['humidity']
 
+        # get wind speed 
         wind_speed = data['wind']['speed']
 
         # display weather information 
-        print(f"\n🌤️ Weather in {city.capitalize()}:")  # City name with first letter capitalized
+        print(f"\n🌤️  Weather in {city.capitalize()}:")  # City name with first letter capitalized
         print(f"   - {weather_description}")  # Weather description
         print(f"   - Temperature: {temp}°F (Feels like {feels_like}°F)")  # Current temp and feels like
         print(f"   - Humidity: {humidity}%")  # Humidity percentage
