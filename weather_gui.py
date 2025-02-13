@@ -26,14 +26,18 @@ def fetch_weather():
         min_temp = data['main']['temp_min']
         max_temp = data['main']['temp_max']
 
-        # display weather information 
-        print(f"\n🌤️  Weather in {city.title()}, {state.upper()}:")  # City name with first letter capitalized
-        print(f"   - {weather_description}")  # Weather description
-        print(f"   - Temperature: {temp}°F (Feels like {feels_like}°F)")  # Current temp and feels like
-        print(f"   - Low: {min_temp}°F ")
-        print(f"   - High: {max_temp}°F ")
-        print(f"   - Humidity: {humidity}%")  # Humidity percentage
-        print(f"   - Wind Speed: {wind_speed} mph")  # Wind speed in meters per second
+        weather_info = (
+            f"🌤️ Weather in {city.title()}, {state.upper()}:\n"
+            f"   - {weather_description}\n"
+            f"   - Temperature: {temp}°F (Feels like {feels_like}°F)\n"
+            f"   - Low: {min_temp}°F\n"
+            f"   - High: {max_temp}°F\n"
+            f"   - Humidity: {humidity}%\n"
+            f"   - Wind Speed: {wind_speed} mph"
+        )
+
+        # update label text in gui
+        result_label.config(text=weather_info)
 
     else: 
         print("\n⚠️ Location not found. Please try again.")
