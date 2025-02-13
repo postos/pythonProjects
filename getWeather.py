@@ -7,8 +7,9 @@ API_KEY = os.getenv("OPENWEATHER_API_KEY") # Retrieves the API key from the envi
 BASE_URL = "http://api.openweathermap.org/data/2.5/weather?"
 
 # get weather method 
-def get_weather(city): 
-    params = {"q" : city, # city entered by user
+def get_weather(city, state, country): 
+    location = f"{city}, {state}, {country}"
+    params = {"q" : location, # city entered by user
               "appid": API_KEY, # api key for authentication
               "units": "imperial"} # use 
     if not city: 
@@ -35,10 +36,18 @@ def get_weather(city):
         # get wind speed 
         wind_speed = data['wind']['speed']
 
+        # get low temp for the day
+        min_temp = data['main']['temp_min']
+
+        # get high temp for the day
+        max_temp = data['main']['temp_max']
+
         # display weather information 
-        print(f"\n🌤️  Weather in {city.capitalize()}:")  # City name with first letter capitalized
+        print(f"\n🌤️  Weather in {city.title()}, {state.upper()}:")  # City name with first letter capitalized
         print(f"   - {weather_description}")  # Weather description
         print(f"   - Temperature: {temp}°F (Feels like {feels_like}°F)")  # Current temp and feels like
+        print(f"   - Low: {min_temp}°F ")
+        print(f"   - High: {max_temp}°F ")
         print(f"   - Humidity: {humidity}%")  # Humidity percentage
         print(f"   - Wind Speed: {wind_speed} mph")  # Wind speed in meters per second
 
@@ -49,6 +58,8 @@ def get_weather(city):
 if __name__ == '__main__': 
     # get city from user
     city = input("Enter city name: ")
+    state = input("Enter state abbreviation (e.g. NY, CA): ")
+    country = input("Enter country abbreviation: (e.g US, CA)")
 
     # get the weather 
-    get_weather(city)
+    get_weather(city, state, country)
