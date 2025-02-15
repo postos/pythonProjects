@@ -44,20 +44,20 @@ def fetch_weather():
 
 # GUI Setup
 root = tk.Tk()
-root.title("Weather App")
-root.geometry("400x300")
+root.title("Weather App ☀️")
+root.geometry("350x300")
 
 tk.Label(root, text="Enter City:").pack()
 city_entry = tk.Entry(root)
 city_entry.pack()
 
-tk.Label(root, text="Enter State (e.g., NY, CA):").pack()
+tk.Label(root, text="Enter region (e.g., NY, CA):").pack()
 state_entry = tk.Entry(root)
 state_entry.pack()
 
-tk.Label(root, text="Enter Country (e.g., US, EU):").pack()
+# tk.Label(root, text="Enter Country (e.g., US, EU):").pack()
 country_entry = tk.Entry(root)
-country_entry.pack()
+# country_entry.pack()
 
 submit_button = tk.Button(root, text="Get Weather", command=fetch_weather)
 submit_button.pack()
